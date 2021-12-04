@@ -141,10 +141,13 @@ namespace iot_sweater
         private static uint lastMemory = 0;
         private static void Checkmemory(string note = "")
         {
-            uint currentMemory = GC.Run(true);
-            int change = (int)(currentMemory - lastMemory);
-            lastMemory = currentMemory;
-            Debug.WriteLine($">>> {note}: Free memory: {currentMemory}  Change: {change}");
+            if (Debugger.IsAttached && Configuration.CheckMemoryUsage)
+            {
+                uint currentMemory = GC.Run(true);
+                int change = (int)(currentMemory - lastMemory);
+                lastMemory = currentMemory;
+                Debug.WriteLine($">>> {note}: Free memory: {currentMemory}  Change: {change}");
+            }
         }
     }
 }

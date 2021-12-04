@@ -5,7 +5,7 @@
         public const int LEDGpioPin = 33;
         public const uint LEDCount = 30;
 
-
+        public const bool CheckMemoryUsage = false; //keep an eye on memory usage when debugger is attached, causes GC to run often
         public const int NetworkConnectTimeout = 60000;
         public const int WifiConnectRetries = 10;
 
