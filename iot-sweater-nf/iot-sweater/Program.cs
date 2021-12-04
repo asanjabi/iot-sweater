@@ -2,6 +2,8 @@ using nanoFramework.Azure.Devices.Client;
 using nanoFramework.Azure.Devices.Provisioning.Client;
 using nanoFramework.Networking;
 
+using NeoPixel;
+
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -13,19 +15,51 @@ namespace iot_sweater
 
     public class Program
     {
-
-
         public static void Main()
         {
             Debug.WriteLine("Hello from nanoFramework!");
+            Checkmemory("Start");
 
             //Make sure to add your Wifi settings using VS
             var connected = ConnectToWifi();
+            Checkmemory("Network Connected");
 
             //Make sure your device information is correct and add Azure certificate using VS
             DeviceClient deviceClient = ConnectToIoTCentral();
+            Checkmemory("Hub connected");
 
+ 
+            var pixelChain = new NeopixelChain(Configuration.LEDGpioPin, Configuration.LEDCount);
+            Checkmemory("Chain created");
+
+            //Testing
+            while (true)
+            {
+                for (uint i = 0; i < Configuration.LEDCount; i++)
+                {
+                    pixelChain[i] = RedColor;
+                }
+                pixelChain.Update();
+
+                Thread.Sleep(2000);
+                for (uint i = 0; i < Configuration.LEDCount; i++)
+                {
+                    pixelChain[i] = BlackColor;
+                }
+                pixelChain.Update();
+
+                Checkmemory("loop done");
+            }
             Thread.Sleep(Timeout.Infinite);
+        }
+
+        private static readonly Color RedColor = new Color { R = 255 };
+        private static readonly Color BlackColor = new Color();
+
+        private static string Off(int rid, string payload)
+        {
+            Debug.WriteLine($"Off: {rid} - {payload}");
+            return string.Empty;
         }
 
         private static DeviceClient ConnectToIoTCentral()
@@ -56,7 +90,7 @@ namespace iot_sweater
                 {
                     registrationResult = provisioning.Register(new CancellationTokenSource(Configuration.DpsRegistrationTimout).Token);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Debug.WriteLine(ex.Message);
                     throw;
