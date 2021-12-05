@@ -1,5 +1,6 @@
 using nanoFramework.Azure.Devices.Client;
 using nanoFramework.Azure.Devices.Provisioning.Client;
+using nanoFramework.Json;
 using nanoFramework.Networking;
 
 using NeoPixel;
@@ -12,7 +13,6 @@ using GC = nanoFramework.Runtime.Native.GC;
 
 namespace iot_sweater
 {
-
     public class Program
     {
         public static void Main()
@@ -28,28 +28,28 @@ namespace iot_sweater
             DeviceClient deviceClient = ConnectToIoTCentral();
             Checkmemory("Hub connected");
 
- 
-            var pixelChain = new NeopixelChain(Configuration.LEDGpioPin, Configuration.LEDCount);
-            Checkmemory("Chain created");
+
+            //var pixelChain = new NeopixelChain(Configuration.LEDGpioPin, Configuration.LEDCount);
+            //Checkmemory("Chain created");
 
             //Testing
-            while (true)
-            {
-                for (uint i = 0; i < Configuration.LEDCount; i++)
-                {
-                    pixelChain[i] = RedColor;
-                }
-                pixelChain.Update();
+            //while (true)
+            //{
+            //    for (uint i = 0; i < Configuration.LEDCount; i++)
+            //    {
+            //        pixelChain[i] = RedColor;
+            //    }
+            //    pixelChain.Update();
 
-                Thread.Sleep(2000);
-                for (uint i = 0; i < Configuration.LEDCount; i++)
-                {
-                    pixelChain[i] = BlackColor;
-                }
-                pixelChain.Update();
+            //    Thread.Sleep(2000);
+            //    for (uint i = 0; i < Configuration.LEDCount; i++)
+            //    {
+            //        pixelChain[i] = BlackColor;
+            //    }
+            //    pixelChain.Update();
 
-                Checkmemory("loop done");
-            }
+            //    Checkmemory("loop done");
+            //}
             Thread.Sleep(Timeout.Infinite);
         }
 
@@ -68,14 +68,10 @@ namespace iot_sweater
 
             if (registrationResult.Status != ProvisioningRegistrationStatusType.Assigned)
             {
-                Debug.WriteLine("Failed to register the device");
-                Debug.WriteLine($"Status {registrationResult.Status.ToString()}");
-                Debug.WriteLine($"SubStatus {registrationResult.Substatus.ToString()}");
-                Debug.WriteLine($"Error message: {registrationResult.ErrorMessage}");
                 return null;
             }
-
             var deviceClient = new DeviceClient(registrationResult.AssignedHub, registrationResult.DeviceId, Configuration.Devicekey);
+
             deviceClient.Open();
             return deviceClient;
         }
@@ -84,30 +80,43 @@ namespace iot_sweater
         {
             DeviceRegistrationResult registrationResult = null;
 
-            using (var provisioning = ProvisioningDeviceClient.Create(Configuration.DpsAddress, Configuration.IdScope, Configuration.DeviceID, Configuration.Devicekey))
+            try
             {
-                try
+                using (var provisioning = ProvisioningDeviceClient.Create(Configuration.DpsAddress, Configuration.IdScope, Configuration.DeviceID, Configuration.Devicekey))
                 {
-                    registrationResult = provisioning.Register(new CancellationTokenSource(Configuration.DpsRegistrationTimout).Token);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    throw;
+                    var additionalData = new ProvisioningRegistrationAdditionalData();
+                    var pnpData = new PnpData(Configuration.DeviceModelId);
+                    additionalData.JsonData = JsonConvert.SerializeObject(pnpData);
+
+                    registrationResult = provisioning.Register(additionalData, new CancellationTokenSource(Configuration.DpsRegistrationTimout).Token);
                 }
             }
-
-            Debug.WriteLine($"Device successfully assigned:");
-            Debug.WriteLine($"  Assigned Hub: {registrationResult.AssignedHub}");
-            Debug.WriteLine($"  Created time: {registrationResult.CreatedDateTimeUtc}");
-            Debug.WriteLine($"  Device ID: {registrationResult.DeviceId}");
-            Debug.WriteLine($"  Error code: {registrationResult.ErrorCode}");
-            Debug.WriteLine($"  Error message: {registrationResult.ErrorMessage}");
-            Debug.WriteLine($"  ETAG: {registrationResult.Etag}");
-            Debug.WriteLine($"  Generation ID: {registrationResult.GenerationId}");
-            Debug.WriteLine($"  Last update: {registrationResult.LastUpdatedDateTimeUtc}");
-            Debug.WriteLine($"  Status: {registrationResult.Status}");
-            Debug.WriteLine($"  Sub Status: {registrationResult.Substatus}");
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            if (registrationResult.Status == ProvisioningRegistrationStatusType.Assigned)
+            {
+                Debug.WriteLine($"Device successfully assigned:");
+                Debug.WriteLine($"  Assigned Hub: {registrationResult.AssignedHub}");
+                Debug.WriteLine($"  Created time: {registrationResult.CreatedDateTimeUtc}");
+                Debug.WriteLine($"  Device ID: {registrationResult.DeviceId}");
+                Debug.WriteLine($"  Error code: {registrationResult.ErrorCode}");
+                Debug.WriteLine($"  Error message: {registrationResult.ErrorMessage}");
+                Debug.WriteLine($"  ETAG: {registrationResult.Etag}");
+                Debug.WriteLine($"  Generation ID: {registrationResult.GenerationId}");
+                Debug.WriteLine($"  Last update: {registrationResult.LastUpdatedDateTimeUtc}");
+                Debug.WriteLine($"  Status: {registrationResult.Status}");
+                Debug.WriteLine($"  Sub Status: {registrationResult.Substatus}");
+            }
+            else
+            {
+                Debug.WriteLine("Failed to register the device");
+                Debug.WriteLine($"  Status {registrationResult.Status.ToString()}");
+                Debug.WriteLine($"  SubStatus {registrationResult.Substatus.ToString()}");
+                Debug.WriteLine($"  Error message: {registrationResult.ErrorMessage}");
+            }
             return registrationResult;
         }
 

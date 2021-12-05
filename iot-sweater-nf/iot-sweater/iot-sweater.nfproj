@@ -21,6 +21,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="NeoPixel\Color.cs" />
     <Compile Include="NeoPixel\NeopixelChain.cs" />
+    <Compile Include="PnPData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Secrets.cs" />
@@ -31,10 +32,8 @@
       <Private>True</Private>
       <SpecificVersion>True</SpecificVersion>
     </Reference>
-    <Reference Include="nanoFramework.Azure.Devices.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
-      <HintPath>..\packages\nanoFramework.Azure.Devices.Client.1.0.0-preview.113\lib\nanoFramework.Azure.Devices.Client.dll</HintPath>
-      <Private>True</Private>
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="nanoFramework.Azure.Devices.Client">
+      <HintPath>..\..\..\nanoFramework.Azure.Devices\Azure.Devices.DeviceClient\bin\Debug\nanoFramework.Azure.Devices.Client.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.Hardware.Esp32.Rmt, Version=1.2.1.0, Culture=neutral, PublicKeyToken=c07d481e9758c731">
       <HintPath>..\packages\nanoFramework.Hardware.Esp32.Rmt.1.2.1-preview.14\lib\nanoFramework.Hardware.Esp32.Rmt.dll</HintPath>
