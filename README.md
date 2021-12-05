@@ -1,4 +1,7 @@
 # ugly-sweater
+### Very much so work in progress at the moment
+
+---
 
 Inspired by: https://github.com/jimbobbennett/IoTUglySweater
 
