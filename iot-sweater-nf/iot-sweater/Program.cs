@@ -28,9 +28,9 @@ namespace iot_sweater
             DeviceClient deviceClient = ConnectToIoTCentral();
             Checkmemory("Hub connected");
 
-
-            //var pixelChain = new NeopixelChain(Configuration.LEDGpioPin, Configuration.LEDCount);
-            //Checkmemory("Chain created");
+            Checkmemory();
+            var pixelChain = new NeopixelChain(Configuration.LEDGpioPin, Configuration.LEDCount);
+            Checkmemory("Chain created");
 
             //Testing
             //while (true)
@@ -147,16 +147,20 @@ namespace iot_sweater
             return success;
         }
 
+#if DEBUG
         private static uint lastMemory = 0;
+#endif
         private static void Checkmemory(string note = "")
         {
-            if (Debugger.IsAttached && Configuration.CheckMemoryUsage)
+#if DEBUG
+            if (Configuration.CheckMemoryUsage)
             {
                 uint currentMemory = GC.Run(true);
                 int change = (int)(currentMemory - lastMemory);
                 lastMemory = currentMemory;
                 Debug.WriteLine($">>> {note}: Free memory: {currentMemory}  Change: {change}");
             }
+#endif
         }
     }
 }

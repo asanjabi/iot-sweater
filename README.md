@@ -1,23 +1,18 @@
-# ugly-sweater
-### Very much so work in progress at the moment
+### This project is still work in progress, **code and instructions are not complete**
+# IoT ugly-sweater
 
----
+*Inspired by: Jim Bennett's [iot ugly sweater project](https://github.com/jimbobbennett/IoTUglySweater ) which is a python implementation of this.*
+  
+There are two parts for this project:
+1. Setup and configure [Azure IoT Central](https://azure.microsoft.com/en-us/services/iot-central/) 
+by following the instructions in the [iot-central folder](iot-central/README.md)
 
-Inspired by: https://github.com/jimbobbennett/IoTUglySweater
+2. Configure your device to connect to your instance of Azure IoT Central.  There are two options for this:
+    1. You can use an [ESP-32](http://esp32.net/) development board and C# using [.NET Nano Framework](https://www.nanoframework.net/) 
+    for instructions on how to do this refer to documentation in the [iot-sweater-nf folder](iot-sweater-nf/README.md)
+    1. You can also use [MXCHIP AZ3166 IOT Developer Kit](https://www.seeedstudio.com/AZ3166-IOT-Developer-Kit.html) using *C* 
+    for instructions on how to do this refer to documentation in the [iot-sweater-mxchip](iot-sweater-mxchip/README.md) 
+    for more information about the iot devkit you can look at the [MXCHIP AZ3166 devkit Quick Start](https://aka.ms/iot-devkit)
 
-1. Read the introduction to [.Net nanoFramework](https://docs.nanoframework.net/content/introduction/what-is-nanoframework.html)
-1. Follow the instructions [here](https://docs.nanoframework.net/content/getting-started-guides/getting-started-managed.html) to install nano framework extension for visual studio 2019 (2022 is not supported yet) in this step you will:
 
-    1. Install Visual Studio 2019 if you don't have it instealled yet, you can find it [here](https://visualstudio.microsoft.com/vs/)
-    1. Install the .NET nanoFramework extension
-    1. Install [nanoFirmwareFlasher](https://docs.nanoframework.net/content/getting-started-guides/getting-started-managed.html#uploading-the-firmware-to-the-board-using-nanofirmwareflasher)
-    1. 
-    nanoff --devicedetails --serialport COM4
-
-    nanoff --target ESP32_REV0 --update --serialport COM4 --preview
-    https://github.com/nanoframework/Home
-    https://github.com/nanoframework/nf-Community-Contributions/blob/master/drivers/ESP32-WS2812/README.md
-    
-
-1. 
 

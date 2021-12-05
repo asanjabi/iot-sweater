@@ -9,7 +9,7 @@
         public const string DeviceModelId = "dtmi:com:contoso:iotSweater:devthehalls;1";
                                              
 
-        public const bool CheckMemoryUsage = false; //keep an eye on memory usage when debugger is attached, causes GC to run often
+        public const bool CheckMemoryUsage = true; //keep an eye on memory usage, causes GC to run often
         public const int NetworkConnectTimeout = 60000;
         public const int WifiConnectRetries = 10;
 
