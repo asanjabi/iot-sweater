@@ -87,7 +87,88 @@ There is a copy of this in the `iot-sweater\iot-sweater-nf\config` directory of 
 At this point your device should be all ready to connect to Azure IoT Central
 
 ## Connect the LEDs
+For this project we are going to use a strand of individually addressable LEDs 
+controlled by [WS2812B](https://www.digikey.com/en/datasheets/parallaxinc/parallax-inc-28085-ws2812b-rgb-led-datasheet) controllers. 
+You can easily purchase these on-line in many form factors or from [Adafruit where they are known as known as NeoPixel](https://learn.adafruit.com/adafruit-neopixel-uberguide).  
+I've been able to connect up to 30 of these directly to the ESP32's power pins without needing an external power supply.
+
+1. On your develpment board locate the +5, ground and the GPIO pin you are going to be using (I used 33)  
+    **Keep in mind that your board might look different**  
+![Picture of ESP32 with +5, ground and IO pin 33 marked](../assets/esp32.jpg)  
+
+2. Connect a set of jumper wires to your NeoPixels making note of the colors.  
+![Picture of jumper wires](../assets/jumper-wires.jpg)  
+![Picture of jumpers connected to NeoPixel](../assets/jumpers-connected-to-pixel.jpg)  
+
+3. Now connect the jumper wires to your ESP32 take care to make sure the NeoPixel wires are connected to the right pins 
+specially if you are using different color jumper wires.  
+Red -> +5  
+Black -> Ground  
+Green -> GPIO port  
+![Picture of all the wires connected](../assets/everything-connected.jpg)
+
+Now your board is ready to go.
 
 
 ## Configure the software
+Now we need to configure a few parameters in the code.  If you haven't created your IoT Central instance, now is the time
+to do so, you can follow the instructions [in this file](../iot-central/README.md).
 
+1. Open `iot-sweater-nf.sln` file with visual studio  
+1. In the iot-sweater project open the `Configuration.cs` file 
+you should see the following code:
+    ```csharp
+        public partial class Configuration
+        {
+            public const int LEDGpioPin = 33;
+            public const uint LEDCount = 30;
+
+            public const string DeviceID = "ali-sweater";   //Replace with your own device ID
+            public const string DeviceModelId = "dtmi:com:contoso:iotSweater:devthehalls;1";    //Edit this if you are providing your own template
+                                             
+
+            public const bool CheckMemoryUsage = true; //keep an eye on memory usage, causes GC to run often
+            public const int NetworkConnectTimeout = 60000;
+            public const int WifiConnectRetries = 10;
+
+            public const int DpsRegistrationTimout = 30000;
+            public const string DpsAddress = "global.azure-devices-provisioning.net";
+        }
+    ```
+      * Edit **LEDGpioPin** if you used a different pin for your GPIO
+      * Change the **LEDCount** to the number of LEDs you are controlling
+      * Give your device a unique name by changing **DeviceID**
+      * If you are providing your own template then change the **DeviceModelID**  
+
+1. Now create a new file called `Secrets.cs` and paste the following code in there.  
+   **Note that this file contains sercrets about your account and should not be checked in**
+    ```csharp
+    namespace iot_sweater
+    {
+        public partial class Configuration
+        {
+            public const string Devicekey = "";
+            public const string IdScope = "";
+        }
+    }
+    ```
+    * Go to your IoT Central Administration tab and open the Device connection tab  
+    ![Picture of the Device connection tab](../assets/iotc-device-connection.png)  
+    * Copy the ID scope value you see there between the quotes for IdScope variable  
+    * Next click on the *SAS-IoT-Devices* link to open the enrollment group  
+    ![Picture of shared access signature keys for enrollment group](../assets/enrollment-group-sas-key.png)  
+    * We are going to use the primary key to create a device specific key (it's not a good idea to include your SAS keys in your code)  
+    * Open a command prompt and type the following commands, make sure to replace the placeholder text 
+    with your own device ID and access key
+    ```
+    az extension add --name azure-iot
+    az iot central device compute-device-key --device-id <your devide ID from above> --pk <the group primary key value>    
+    ```  
+    * Copy the device specific key into the Secrets.cs file for Devicekey value.
+
+1. AT this point everything should be ready, make sure your device is connected to your computer, and it shows up in Device Explorer 
+press F5 or click the start debugging button ![Picture of start debugging button](../assets/debug-button.png) the application 
+should get dployed to the device and start running.  
+If everything goes correctly, after a few minutes you should be able to see your device in IoT Central  
+![Picture of the device in IoT Central](../assets/device-in-central.png)
+    

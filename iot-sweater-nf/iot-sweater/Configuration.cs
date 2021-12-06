@@ -5,8 +5,8 @@
         public const int LEDGpioPin = 33;
         public const uint LEDCount = 30;
 
-        public const string DeviceID = "ali-sweater";
-        public const string DeviceModelId = "dtmi:com:contoso:iotSweater:devthehalls;1";
+        public const string DeviceID = "ali-sweater";   //Replace with your own device ID
+        public const string DeviceModelId = "dtmi:com:contoso:iotSweater:devthehalls;1";    //Edit this if you are providing your own template
                                              
 
         public const bool CheckMemoryUsage = true; //keep an eye on memory usage, causes GC to run often
@@ -14,7 +14,7 @@
         public const int WifiConnectRetries = 10;
 
         public const int DpsRegistrationTimout = 30000;
-        public const string DpsAddress = "global.azure-devices-provisioning.net"; // You can use as well your own address like yourdps.azure-devices-provisioning.net
+        public const string DpsAddress = "global.azure-devices-provisioning.net";
     }
 }
 
@@ -25,7 +25,6 @@
 //{
 //    public partial class Configuration
 //    {
-//        public const string SASKey= "";
 //        public const string Devicekey = "";
 //        public const string IdScope = "";
 //    }
