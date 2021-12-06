@@ -8,6 +8,12 @@ For more information you can read the introduction to [.Net nanoFramework](https
 [ESP32](https://www.espressif.com/en/products/socs/esp32) is a fairly inexpensive and easy to use micro controller 
 with integrated WiFi and blue-tooth support that can be readily purchased on ebay or online book sellers.
 
+* [What you need for this project](#what-you-need-for-this-project)  
+* [Configuring your development environment](#configuring-your-development-environment)  
+* [Configure your device](#configure-your-device)
+* [Connect the LEDs](#connect-the-leds)
+* [Configure the software](#configure-the-software)
+
 ## What you need for this project
 * Visual Studio for windows
 * An ESP32 development board
