@@ -57,10 +57,10 @@ For more information and troubleshooting look at [this section of getting starte
    * Open device explorer  
    ![Picture of device explorer and an ESP32 device highlighted](../assets/device-explorer.png)  
 
-  * Click the Edit Network Configuration tool icon  
+   * Click the Edit Network Configuration tool icon  
    ![Picture of Edit Network Configuration icon](../assets/edit-network-configuration.png)  
 
-  * Selecte the WiFi-Profiles tab and enter your SSID and Password once you press OK it should connect to your network  
+   * Selecte the WiFi-Profiles tab and enter your SSID and Password once you press OK it should connect to your network  
   ![Picture of the WiFi-Profies tab](../assets/wifi-setup.png)
 
 1. Upload Azure certificate, since we are going to use TLS to communicate with Azure IoT Central, we need a copy of it's certificate.
