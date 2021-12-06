@@ -1,1 +1,1 @@
-nanoff --update --target ESP32_REV0 --serialport COM4 --baud 115200
+nanoff --update --target ESP32_REV0 --baud 115200 --fwversion 1.7.2.6 --serialport COM4
