@@ -1,0 +1,37 @@
+[
+  {
+    "@id": "dtmi:com:contoso:iotSweater:devthehalls;1",
+    "@type": "Interface",
+    "contents": [
+      {
+        "@id": "dtmi:com:contoso:iotSweater:devthehalls:LEDIOPin;1",
+        "@type": "Property",
+        "displayName": {
+          "en": "LED IO Pin"
+        },
+        "name": "LEDIOPin",
+        "schema": "integer",
+        "writable": true
+      },
+      {
+        "@id": "dtmi:com:contoso:iotSweater:devthehalls:TurnOff;1",
+        "@type": "Command",
+        "commandType": "synchronous",
+        "description": {
+          "en": "Turn off the lights"
+        },
+        "displayName": {
+          "en": "TurnOff"
+        },
+        "name": "TurnOff"
+      }
+    ],
+    "displayName": {
+      "en": "IoT Sweater"
+    },
+    "@context": [
+      "dtmi:iotcentral:context;2",
+      "dtmi:dtdl:context;2"
+    ]
+  }
+]
