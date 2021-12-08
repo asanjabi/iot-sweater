@@ -5,7 +5,7 @@
         public const int LEDGpioPin = 33;
         public const uint LEDCount = 30;
 
-        public const string DeviceID = "ali-sweater";   //Replace with your own device ID
+        public const string DeviceID = "AlisSweater";   //Replace with your own device ID
         public const string DeviceModelId = "dtmi:com:contoso:iotSweater:devthehalls;1";    //Edit this if you are providing your own template
                                              
 
