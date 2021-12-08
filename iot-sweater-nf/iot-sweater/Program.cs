@@ -1,3 +1,5 @@
+using iot_sweater.Patterns;
+
 using nanoFramework.Azure.Devices.Client;
 using nanoFramework.Azure.Devices.Provisioning.Client;
 using nanoFramework.Json;
@@ -15,6 +17,7 @@ namespace iot_sweater
 {
     public class Program
     {
+        private static PatternRunner patternRunner;
         public static void Main()
         {
             Debug.WriteLine("Hello from nanoFramework!");
@@ -28,37 +31,46 @@ namespace iot_sweater
             DeviceClient deviceClient = ConnectToIoTCentral();
             Checkmemory("Hub connected");
 
+            deviceClient.AddMethodCallback(TurnOff);
+            deviceClient.AddMethodCallback(ShowRainbow);
+            deviceClient.AddMethodCallback(ShowSnake);
+
             Checkmemory();
             var pixelChain = new NeopixelChain(Configuration.LEDGpioPin, Configuration.LEDCount);
             Checkmemory("Chain created");
 
-            //Testing
-            //while (true)
-            //{
-            //    for (uint i = 0; i < Configuration.LEDCount; i++)
-            //    {
-            //        pixelChain[i] = RedColor;
-            //    }
-            //    pixelChain.Update();
+            IPattern initialPattern = new Rainbow(Configuration.LEDCount,  20, 5, 200);
+            patternRunner = new PatternRunner(Configuration.LEDGpioPin, Configuration.LEDCount, initialPattern);
 
-            //    Thread.Sleep(2000);
-            //    for (uint i = 0; i < Configuration.LEDCount; i++)
-            //    {
-            //        pixelChain[i] = BlackColor;
-            //    }
-            //    pixelChain.Update();
+            while(true)
+            {
+                patternRunner.Run();
+            }
 
-            //    Checkmemory("loop done");
-            //}
-            Thread.Sleep(Timeout.Infinite);
+            //Thread.Sleep(Timeout.Infinite);
         }
 
-        private static readonly Color RedColor = new Color { R = 255 };
-        private static readonly Color BlackColor = new Color();
-
-        private static string Off(int rid, string payload)
+        private static string TurnOff(int rid, string payload)
         {
             Debug.WriteLine($"Off: {rid} - {payload}");
+            patternRunner.NewPattern(new Off(Configuration.LEDCount, 200));
+
+            return string.Empty;
+        }
+
+        private static string ShowRainbow(int rid, string payload)
+        {
+            Debug.WriteLine($"ShowRainbow: {rid} - {payload}");
+            patternRunner.NewPattern(new Rainbow(Configuration.LEDCount, 20, 5, 200));
+           
+            return string.Empty;
+        }
+
+        private static string ShowSnake(int rid, string payload)
+        {
+            Debug.WriteLine($"ShowRainbow: {rid} - {payload}");
+            patternRunner.NewPattern(new Theather(Configuration.LEDCount, 255, 0, 255, 4, 200));
+
             return string.Empty;
         }
 

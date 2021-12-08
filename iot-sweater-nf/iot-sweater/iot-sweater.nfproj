@@ -21,10 +21,15 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="NeoPixel\Color.cs" />
     <Compile Include="NeoPixel\NeopixelChain.cs" />
+    <Compile Include="Patterns\IPattern.cs" />
+    <Compile Include="Patterns\Off.cs" />
+    <Compile Include="Patterns\Rainbow.cs" />
+    <Compile Include="Patterns\Theather.cs" />
     <Compile Include="PnPData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Secrets.cs" />
+    <Compile Include="Patterns\PatternRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib, Version=1.11.7.2, Culture=neutral, PublicKeyToken=c07d481e9758c731">
