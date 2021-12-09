@@ -27,7 +27,7 @@ This project is based on [Quickstart: Add IoT Plug and Play to your MXChip IoT D
         Make sure you are not using the version from the store
     * Now instal [Visual Studio Code extension for Arduino](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.vscode-arduino)
 
-    ## Note configuring settings step for Arduino plugin and installation of the serial port driver is missing look at [these instructions](https://docs.microsoft.com/en-us/samples/azure-samples/mxchip-iot-devkit-get-started/sample/) for completing your setup
+    ## Note configuring settings step for Arduino plugin and installation of the serial port driver is missing look at [these instructions](https://docs.microsoft.com/en-us/samples/azure-samples/mxchip-iot-devkit-get-started/sample/) for completing your setup.  If you follow these instructions make sure to install version 2.0 of the SDK in Arduino board manager.
 
 
 ## Configure your device
