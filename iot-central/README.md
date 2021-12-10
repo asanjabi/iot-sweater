@@ -17,8 +17,7 @@
     Notice that there are several options that provide a more advanced starting point for certain scenarios.
 
 1. Under **Featured**, click **Custom app**.
-
- ![Picture app template options](../assets/iotc-pick-app-template.png)
+  ![Picture app template options](../assets/iotc-pick-app-template.png)
 
 1. On the **New application** page, under **Application name**, enter your Application name. 
 
@@ -47,8 +46,7 @@
     > **Note**: There is no commitment or termination fees associated with the plan. The **Build** page includes a link to [Get pricing details](https://aka.ms/iotcentral-pricing) if you are interested in reading more about IoT Central pricing.
 
 1. At the bottom of the page, click **Create**.
-
- ![Picture app template options](../assets/iotc-pricing.png)
+  ![Picture pricing options](../assets/iotc-pricing.png)
 
     Wait a few seconds while the app resource is built, then you should see a **Dashboard** with a few default links.
 
@@ -67,8 +65,7 @@
 The data that will be communicated between your device and IoT Central is specified in a _device template_. The device template encapsulates all the details of the data, so that both the device and IoT Central have all they need to make sense of the communication.
 
 1. On the **Dashboard** page of your Azure IoT Central app, on the left side navigation menu under **App settings**, click **Device templates**.
-
- ![Picture app template options](../assets/iotc-device-teamplate-empty.png)
+  ![Picture device template empty](../assets/iotc-device-teamplate-empty.png)
 
 1. Under **Device templates**, click **+ New**.
 
@@ -77,19 +74,42 @@ The data that will be communicated between your device and IoT Central is specif
     > **TIP**: Take note of the preconfigured options. You may want to use one of these preconfigured device templates for a future project if you have the associated hardware.
 
 1. Under **Create a custom device template**, click **IoT device**, then click **Next: Customize** at the bottom of the page.
-
- ![Picture app template options](../assets/iotc-template-select-type.png)
+  ![Picture select template type](../assets/iotc-template-select-type.png)
 
 1. Enter the **Device template name** "iot-sweater", then click **Next: Review** at the bottom of the page.
+  ![Picture customize template](../assets/iotc-customize-template.png)
 
- ![Picture app template options](../assets/iotc-customize-template.png)
+1. Verify that your **Device template type** and **Device template name** match the image below, then click **Create**.
+  ![Picture create device template](../assets/iotc-device-template-create.png)
 
-1. Verify that your **Device template type** and **Device template name** match the image below, then click **Create**
+1. To create the model for your new device template, select **Import a model** under **Create a model**.
+  ![Picture device template model options](../assets/iotc-device-template-import.png)
 
- ![Picture app template options](../assets/iotc-device-template-create.png)
+1. Go to the location where your GitHub repo files were saved and browse to the **IoT Central** folder. Select **IoT Sweater Template.json** and click **Open**.
+  ![Picture device template import](../assets/iotc-device-template-selectjsonfile.jpg)
 
-(still in work)
+1. Verify that you see the model structure below...
+  ![Picture device template model](../assets/iotc-device-template-model.jpg) 
+ 
+    > **TIP**: You can add additional properties here to expand your project, if necessary.
+    
+1. At the top, select the **Publish** option to make this device template available for new devices. You will see a dialog with more detail on what is being published. Click **Publish** to complete the publishing process.
+  ![Picture publish device template](../assets/iotc-device-template-publish.jpg) 
 
+    Your next step is to add a _device_.
+
+#### Task 3: Add a device
+This is where you'll be adding your sweater device into IoT Central using the device template created above. Repeat this task for each of the different sweater devices you'll be adding.
+
+1. Within your Azure IoT Central app, select **Devices** on the left side navigation menu.
+
+1. Select **+ New** on the menu at the top to add your device.
+
+1. Give your device a friendly name and enter a unique Device ID. _Example: DianasSweater_
+
+1. Select the **iot_sweater** for the Device template, then click **Create**.
+
+1. Click on your new device name to go into the device detail. At the top, select **Connect**. Save the ID scope, Device ID, and Primary key for future use. 
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](/LICENSE)
