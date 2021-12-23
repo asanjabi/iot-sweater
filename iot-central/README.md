@@ -86,7 +86,7 @@ The data that will be communicated between your device and IoT Central is specif
   ![Picture device template model options](../assets/iotc-device-template-import.png)
 
 1. Go to the location where your GitHub repo files were saved and browse to the **IoT Central** folder. Select **IoT Sweater Template.json** and click **Open**.
-  ![Picture device template import](../assets/iotc-device-template-selectjsonfile.jpg)
+  ![Picture device template json](../assets/iotc-device-template-selectjsonfile.jpg)
 
 1. Verify that you see the model structure below...
   ![Picture device template model](../assets/iotc-device-template-model.jpg) 
@@ -94,7 +94,7 @@ The data that will be communicated between your device and IoT Central is specif
     > **TIP**: You can add additional properties here to expand your project, if necessary.
     
 1. At the top, select the **Publish** option to make this device template available for new devices. You will see a dialog with more detail on what is being published. Click **Publish** to complete the publishing process.
-  ![Picture publish device template](../assets/iotc-device-template-publish.jpg) 
+  ![Picture publish device template](../assets/iotc-device-template-publish.png) 
 
     Your next step is to add a _device_.
 
@@ -105,9 +105,10 @@ This is where you'll be adding your sweater device into IoT Central using the de
 
 1. Select **+ New** on the menu at the top to add your device.
 
-1. Give your device a friendly name and enter a unique Device ID. _Example: DianasSweater_
+1. Give your device a friendly name and enter a unique Device ID. _Example: ali-sweater_
 
 1. Select the **iot_sweater** for the Device template, then click **Create**.
+  ![Picture device in IoT Central](../assets/device-in-central.png)
 
 1. Click on your new device name to go into the device detail. At the top, select **Connect**. Save the ID scope, Device ID, and Primary key for future use. 
 
